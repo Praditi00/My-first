@@ -415,12 +415,13 @@ function CreateInvoiceModal({ products, setProducts, customers, sales, onSave, o
 
               {/* Totals */}
               <div style={{background:"#14532d",color:"#fff",borderRadius:12,padding:"14px 18px",marginTop:12}}>
-                {[
+                {([
                   ["Subtotal", fmtMoney(subtotal)],
                   totalDisc>0 ? ["Total Discount", `-${fmtMoney(totalDisc)}`] : null,
                   ["Taxable Amount", fmtMoney(taxable)],
                   ["GST", fmtMoney(totalGST)],
-                ].filter(Boolean).map(([k,v])=>(
+                ] as ([string, string] | null)[])
+                  .filter((item): item is [string, string] => item !== null ).map(([k,v])=>(
                   <div key={k as string} style={{display:"flex",justifyContent:"space-between",marginBottom:5,fontSize:13,opacity:.85}}>
                     <span>{k}</span><span>{v}</span>
                   </div>
