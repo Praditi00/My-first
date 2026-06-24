@@ -480,12 +480,13 @@ function ViewInvoiceModal({ inv, onClose }: { inv: SaleInvoice; onClose: () => v
           </tbody>
         </table>
         <div style={{maxWidth:280,marginLeft:"auto"}}>
-          {[
+          {([
             ["Subtotal", fmtMoney(inv.subtotal)],
             inv.totalDiscount>0?["Discount",`-${fmtMoney(inv.totalDiscount)}`]:null,
             ["Taxable", fmtMoney(inv.taxableAmount)],
             ["GST", fmtMoney(inv.totalGST)],
-          ].filter(Boolean).map(([k,v])=>(
+          ]as ([string, string] | null)[])
+          .filter((item): item is [string, string] => item !== null).map(([k,v])=>(
             <div key={k as string} style={{display:"flex",justifyContent:"space-between",padding:"4px 0",fontSize:13,borderBottom:"1px solid #f1f5f9"}}>
               <span style={{color:"#64748b"}}>{k}</span><span>{v}</span>
             </div>
